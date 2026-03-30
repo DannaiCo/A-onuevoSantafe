@@ -4,11 +4,10 @@
   <meta charset="UTF-8">
   <title>fin de año</title>
 
-  <!-- Fuente Germania One -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Open+Sans:ital,wght@1,600&display=s… rel="stylesheet">
-
+  <!-- Fuente correcta -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
 
   <style>
     html, body {
@@ -20,7 +19,6 @@
       height: 100%;
     }
 
-    /* Contenedor principal con video y texto */
     .contenedor-total {
       position: absolute;
       top: 0;
@@ -30,7 +28,6 @@
       transform-origin: top left;
     }
 
-    /* 🎥 VIDEO DE FONDO */
     video#fondo {
       position: absolute;
       top: 0;
@@ -41,7 +38,6 @@
       z-index: 0;
     }
 
-    /* 📝 FRASE (posición fija dentro del video) */
     .contenedor-frase {
       position: absolute;
       top: 600px;
@@ -51,7 +47,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(255, 255, 255, 0);
       z-index: 1;
     }
 
@@ -59,98 +54,47 @@
       font-size: 110px;
       color: white;
       font-family: "Dela Gothic One", sans-serif;
-	  font-optical-sizing: auto;
-      font-weight: 500;
-	  font-style: normal;
-      font-variation-settings:"wdth" 100;
       letter-spacing: 2px;
       text-align: center;
-    }
-
-    /* 🔢 CONTADOR */
-    .contador {
-      position: absolute;
-      bottom: 145px;
-      left: 0;
-      width: 64%;
-      text-align: center;
-      font-size: 120px;
-      font-family: "Anton", sans-serif;
-      font-weight: 400;
-	  font-style: normal;
-      color: #2231dc;
-      letter-spacing: 3px;
-	  line-height: 1;
-      text-shadow: 0 0 10px rgba(0,0,0,0);
-      z-index: 1;
     }
   </style>
 </head>
 <body>
   <div class="contenedor-total" id="contenedor">
-    <!-- 🎥 Video de fondo -->
+    
     <video id="fondo" autoplay muted loop playsinline>
       <source src="fondo.mp4" type="video/mp4">
     </video>
 
-    <!-- 📝 Frase -->
     <div class="contenedor-frase">
       <div id="frase">Cargando frase...</div>
     </div>
 
-    <!-- ⏳ Contador -->
-    <div class="contador" id="contador"></div>
   </div>
 
   <script>
     const frases = [
       "Aún estás a tiempo de empezar de nuevo.",
-"Perdonar también te libera.",
-"Agradecer cambia el día.",
-"Alguien necesita tu ayuda hoy.",
-"Una palabra amable cambia el día.",
-"Hoy puedes elegir la calma.",
-"Lo simple también transforma.",
-"Ayudar también te cambia.",
-"Un momento de silencio ayuda.",
+      "Perdonar también te libera.",
+      "Agradecer cambia el día.",
+      "Alguien necesita tu ayuda hoy.",
+      "Una palabra amable cambia el día.",
+      "Hoy puedes elegir la calma.",
+      "Lo simple también transforma.",
+      "Ayudar también te cambia.",
+      "Un momento de silencio ayuda."
     ];
 
-    let index = Math.floor(Math.random() * frases.length);
     const elemento = document.getElementById("frase");
 
     function cambiarFrase() {
-      elemento.textContent = frases[index];
-      index = (index + 1) % frases.length;
+      const randomIndex = Math.floor(Math.random() * frases.length);
+      elemento.textContent = frases[randomIndex];
     }
 
     cambiarFrase();
     setInterval(cambiarFrase, 10000);
 
-    /* 🕒 Cuenta regresiva */
-    const contador = document.getElementById("contador");
-    const fechaFin = new Date("December 31, 2025 23:59:59").getTime();
-
-    function actualizarContador() {
-      const ahora = new Date().getTime();
-      const diferencia = fechaFin - ahora;
-
-      if (diferencia <= 0) {
-        contador.textContent = "¡Feliz Año Nuevo! 🎉";
-        return;
-      }
-
-      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-      const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-      const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
-      contador.innerHTML = `${dias}<br>días`;
-    }
-
-    actualizarContador();
-    setInterval(actualizarContador, 1000);
-
-    /* 🔍 Escalar todo el contenedor (video + texto juntos) */
     function escalarPantalla() {
       const escalaX = window.innerWidth / 2560;
       const escalaY = window.innerHeight / 1440;
